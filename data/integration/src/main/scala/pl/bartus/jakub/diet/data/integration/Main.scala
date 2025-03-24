@@ -15,6 +15,7 @@ object Main {
     val postgresUser = config.getString("postgres.user")
     val postgresPass = config.getString("postgres.password")
     val mealTable = config.getString("postgres.mealTable")
+    val productTable = config.getString("postgres.productTable")
 
     val spark = SparkSession.builder()
       .appName("data-integration")
@@ -35,6 +36,29 @@ object Main {
       .option("uri", mongoUri)
       .option("collection", productCollection)
       .load()
+
+    val mappedProducts = productDF.select(
+      $"_id".alias("id"),
+      $"name",
+      $"description",
+      $"price".cast("decimal(10,2)").alias("price"),
+      $"currency",
+      $"value".cast("decimal(10,2)").alias("value"),
+      $"unit",
+      $"kcal",
+      $"protein",
+      $"fat",
+      $"carbohydrate"
+    )
+
+    mappedProducts.write
+      .format("jdbc")
+      .option("url", postgresUrl)
+      .option("dbtable", productTable)
+      .option("user", postgresUser)
+      .option("password", postgresPass)
+      .mode("append")
+      .save()
 
 
     val explodedMeals = mealDF
@@ -76,7 +100,7 @@ object Main {
       col("totalProtein").cast("float").alias("protein"),
       col("totalFat").cast("float").alias("fat"),
       col("totalCarbohydrate").cast("float").alias("carbohydrate"),
-      col("totalPrice").cast("float").alias("price")
+      col("totalPrice").cast("decimal(10,2)").alias("price")
     )
 
     val existingMeals = spark.read
@@ -88,12 +112,56 @@ object Main {
       .load()
       .select("id")
 
+    val existingMealProduct = spark.read
+      .format("jdbc")
+      .option("url", postgresUrl)
+      .option("dbtable", "meal_product")
+      .option("user", postgresUser)
+      .option("password", postgresPass)
+      .load()
+      .select("meal_id", "product_id")
+
     val newMeals = mappedMeals.join(existingMeals, mappedMeals("id") === existingMeals("id"), "leftanti")
 
     newMeals.write
       .format("jdbc")
       .option("url", postgresUrl)
       .option("dbtable", mealTable)
+      .option("user", postgresUser)
+      .option("password", postgresPass)
+      .mode("append")
+      .save()
+
+    val mealProductMapping = explodedMeals.join(
+        productDF,
+        explodedMeals("prodName") === productDF("name"),
+        "left"
+      )
+      .select(
+        explodedMeals("meal_id"),
+        productDF("_id").alias("product_id")
+      )
+      .distinct()
+
+    mealProductMapping.write
+      .format("jdbc")
+      .option("url", postgresUrl)
+      .option("dbtable", "meal_product")
+      .option("user", postgresUser)
+      .option("password", postgresPass)
+      .mode("append")
+      .save()
+
+    val newMealProductMapping = mealProductMapping.join(
+      existingMealProduct,
+      Seq("meal_id", "product_id"),
+      "leftanti"
+    )
+
+    newMealProductMapping.write
+      .format("jdbc")
+      .option("url", postgresUrl)
+      .option("dbtable", "meal_product")
       .option("user", postgresUser)
       .option("password", postgresPass)
       .mode("append")
