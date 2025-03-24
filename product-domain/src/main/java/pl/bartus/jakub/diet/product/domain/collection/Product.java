@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.bartus.jakub.diet.product.domain.model.Currency;
 import pl.bartus.jakub.diet.product.domain.model.UnitType;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 public class Product {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String name;
     private String description;
     private BigDecimal price;

@@ -32,4 +32,11 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(productService.createBulk(request));
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAll() {
+        productService.deleteAll();
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+
+    }
 }

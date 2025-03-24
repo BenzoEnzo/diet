@@ -37,4 +37,8 @@ public class ProductService {
                 .map(productMapper::mapToDTO)
                 .toList();
     }
+
+    public void deleteAll(){
+        productRepository.deleteAll();
+    }
 }
