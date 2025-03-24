@@ -1,5 +1,6 @@
 package pl.bartus.jakub.diet.product.domain.model;
 
+import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,8 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 public class ProductDTO {
-    private String id;
+    @Null
+    private Long id;
     private String name;
     private String description;
     private Currency currency;

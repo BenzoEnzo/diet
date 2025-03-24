@@ -14,5 +14,5 @@ public class MealDTO {
     private String name;
     private MealType mealType;
     private String description;
-    private List<ProductMeal> products;
+    private List<ProductDTO> products;
 }

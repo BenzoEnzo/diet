@@ -1,33 +1,27 @@
-package pl.bartus.jakub.diet.application.api.entity;
+package pl.bartus.jakub.diet.meal.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import pl.bartus.jakub.diet.meal.domain.model.MealType;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-@Table(name = "meal")
 @NoArgsConstructor
 @Getter
 @Setter
 public class Meal {
-
     @Id
-    @Column(length = 24, nullable = false)
-    private String id;
-
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
-
-    @Column(length = 50)
-    private String mealType;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mealType", length = 5)
+    private MealType mealType;
+    @Column(columnDefinition = "TEXT")
     private String description;
-
     private Integer kcal;
     private Float protein;
     private Float fat;
@@ -42,5 +36,5 @@ public class Meal {
             joinColumns = @JoinColumn(name = "meal_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products = new HashSet<>();
+    private List<Product> products;
 }

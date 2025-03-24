@@ -7,8 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductMeal {
+public class ProductDTO {
+    private Long id;
     private String name;
     private String value;
-    private UnitType unitType;
+    private UnitType unit;
+    private String description;
 }

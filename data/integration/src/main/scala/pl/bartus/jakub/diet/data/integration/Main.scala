@@ -10,7 +10,6 @@ object Main {
 
     val mongoUri = config.getString("mongodb.uri")
     val mealCollection = config.getString("mongodb.mealCollection")
-    val productCollection = config.getString("mongodb.productCollection")
     val postgresUrl = config.getString("postgres.url")
     val postgresUser = config.getString("postgres.user")
     val postgresPass = config.getString("postgres.password")
