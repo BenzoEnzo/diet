@@ -137,7 +137,6 @@ object DataIntegrationApp {
       .mode("append")
       .save()
 
-
     spark.stop()
   }
 }
