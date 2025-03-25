@@ -4,5 +4,5 @@ import org.springframework.stereotype.Repository;
 import pl.bartus.jakub.diet.application.api.collection.Meal;
 
 @Repository
-public interface MealRepository extends MongoRepository<Meal,Long> {
+public interface MealRepository extends MongoRepository<Meal,String> {
 }
