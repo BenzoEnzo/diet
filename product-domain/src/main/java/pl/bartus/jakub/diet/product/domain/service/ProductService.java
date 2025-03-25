@@ -2,7 +2,7 @@ package pl.bartus.jakub.diet.product.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.bartus.jakub.diet.product.domain.collection.Product;
+import pl.bartus.jakub.diet.product.domain.entity.Product;
 import pl.bartus.jakub.diet.product.domain.model.ProductDTO;
 import pl.bartus.jakub.diet.product.domain.model.ProductListDTO;
 import pl.bartus.jakub.diet.product.domain.mapper.ProductMapper;

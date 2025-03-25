@@ -1,5 +1,6 @@
 package pl.bartus.jakub.diet.product.domain.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,13 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO request) {
+    public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(productService.create(request));
     }
 
     @PostMapping("/bulk")
-    public ResponseEntity<List<ProductDTO>> createProducts(@RequestBody ProductListDTO request) {
+    public ResponseEntity<List<ProductDTO>> createProducts(@Valid @RequestBody ProductListDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(productService.createBulk(request));
     }
