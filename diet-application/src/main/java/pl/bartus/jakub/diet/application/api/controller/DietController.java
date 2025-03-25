@@ -3,11 +3,10 @@ package pl.bartus.jakub.diet.application.api.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.bartus.jakub.diet.application.api.collection.Meal;
 import pl.bartus.jakub.diet.application.api.logic.DietService;
+import pl.bartus.jakub.diet.application.api.model.MealSpecificationDTO;
 
 import java.util.List;
 
@@ -17,10 +16,10 @@ import java.util.List;
 public class DietController {
     private final DietService dietService;
 
-    @GetMapping()
-    public ResponseEntity<List<Meal>> getAll(){
+    @PostMapping()
+    public ResponseEntity<List<Meal>> getAll(@RequestBody MealSpecificationDTO request){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(dietService.getAll());
+                .body(dietService.getAll(request));
     }
 }

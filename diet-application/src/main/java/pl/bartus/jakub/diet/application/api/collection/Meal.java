@@ -23,6 +23,6 @@ public class Meal {
     private Float protein;
     private Float fat;
     private Float carbohydrate;
-    private BigDecimal price;
+    private Float price;
     private Set<Product> products;
 }
