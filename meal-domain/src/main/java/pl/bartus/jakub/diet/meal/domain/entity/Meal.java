@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.bartus.jakub.diet.meal.domain.model.MealType;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -22,13 +21,6 @@ public class Meal {
     private MealType mealType;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private Integer kcal;
-    private Float protein;
-    private Float fat;
-    private Float carbohydrate;
-
-    @Column(precision = 10, scale = 2)
-    private BigDecimal price;
 
     @ManyToMany
     @JoinTable(

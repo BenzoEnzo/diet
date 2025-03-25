@@ -7,8 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Document(collection = "Meal")
@@ -26,5 +24,5 @@ public class Meal {
     private Float fat;
     private Float carbohydrate;
     private BigDecimal price;
-    private List<Product> products;
+    private Set<Product> products;
 }
