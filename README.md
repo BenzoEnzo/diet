@@ -1,6 +1,6 @@
 # Diet Application
 
-The Diet Application is designed to help users plan cost-effective diets by allowing them to filter and combine meal and product data from multiple sources. This application integrates Java, Spring, Scala, Spark, PostgreSQL, and MongoDB to provide a comprehensive solution.
+The Diet Application is designed to help users plan cost-effective diets by allowing them to filter and combine meal and product data from multiple sources. This application integrates Java, Spring, Scala, Spark, PostgreSQL, and MongoDB.
 
 ## Table of Contents
 
